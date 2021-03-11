@@ -9,7 +9,29 @@
 <body style="background-color:rgb(0, 0, 0);">
     <center>
         <h1 style="font-size: 40px; font-family: fantasy; color: white;">Word Counter!</h1><br>
-        <textarea style="width: 80%; height: 22em; font-size: 20px; resize: none;" cols="40" rows="5"></textarea>
+        <textarea id="input" style="width: 80%; height: 22em; font-size: 20px; resize: none;" cols="40" rows="5"></textarea>
+        <p id="count" style="color:white; font-size: 30px;">0</p>
     </center>
+
+    <script>
+        var count = document.getElementById('count');
+        var input = document.getElementById('input');
+
+        input.addEventListener('keyup', function(e){
+            wordCounter(e.target.value);
+        });
+
+        function wordCounter(text) {
+            var text = input.value;
+            var wordCount = 0;
+            for (var i = 0; i <= text.length; i++) {
+                if (text.charAt(i) == ' ') {
+                wordCount++;
+                }
+            }
+            count.innerText = wordCount;
+        }
+
+    </script>
 </body>
 </html>
