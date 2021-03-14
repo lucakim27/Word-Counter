@@ -5,39 +5,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Counter Website</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        h1 {
+            font-size: 40px; font-family: fantasy; color: white;
+        }
+        textarea {
+            width: 80%; height: 22em; font-size: 20px; resize: none;
+        }
+        p {
+            color: white; font-size: 20px; font-family: fantasy; display: inline-block;
+        }
+        .two p:nth-child(2) { margin-right: 100px; }
+    </style>
 </head>
-<body style="background-color:rgb(0, 0, 0);">
+<body>
     <center>
-        <h1 style="font-size: 40px; font-family: fantasy; color: white;">Word Counter!</h1><br>
-        <textarea id="input" style="width: 80%; height: 22em; font-size: 20px; resize: none;" cols="40" rows="5"></textarea>
-        <tr>
-            <p style="color:white;">Word: <p id="word_count" style="color:white; font-size: 30px;">0</p></p>
-            <p style="color:white;">Character: <p id="char_count" style="color: white; font-size: 30px;">0</p></p>
-        </tr>
-        
-    </center>
-
+        <h1>Word Counter!</h1><br>
+        <textarea id="input" cols="40" rows="5"></textarea>
+        <br><br><br>
+        <div class="two">
+        <p>Word: <p id="word_count">0</p></p>
+        <p>Character: <p id="char_count">0</p></p>
+        </div>
+    </center> 
     <script>
-        var word_count = document.getElementById('word_count');
         var char_count = document.getElementById('char_count');
         var input = document.getElementById('input');
-
-        input.addEventListener('keyup', function(e){
-            wordCounter(e.target.value);
-            charCounter(e.target.value);
-        });
-
-        function wordCounter(text) {
-            var text = input.value;
-            var wordCount = 0;
-            for (var i = 0; i <= text.length; i++) {
-                if (text.charAt(i) == ' ') {
-                    wordCount++;
-                }
-            }
-            word_count.innerText = wordCount;
+        const textareaEl = document.querySelector('textarea');
+        const wordCounterEl = document.querySelector('#word_count');
+        
+        
+        // Get the value of textarea
+        // and calculate the total word
+        const getTotalWord = (element) => {
+            let text = element.value;
+            let totalWord = text.split(' ').length;
+            return text === '' ? 0 : totalWord;
         }
-
+        
+        // Update the word counter element
+        const setWordCounter = (element, value) => {
+            element.textContent = value;
+        } 
+        
+        // Fire this function when the user is typing
+        textareaEl.addEventListener('keyup', () => {
+            let totalWord = getTotalWord(textareaEl);
+            setWordCounter(wordCounterEl, totalWord);
+        });
+        
+        // when keyup then running the charCounter function down below
+        input.addEventListener('keyup', function(e){
+            charCounter(e.target.value);
+        });        
+                
+        // character counter function
         function charCounter(text) {
             var text = input.value;
             var charCount = 0;
@@ -48,7 +73,6 @@
             }
             char_count.innerText = charCount - 1;
         }
-
     </script>
 </body>
 </html>
