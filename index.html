@@ -6,19 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Counter Website</title>
     <style>
-        body {
-            background-color: black;
-        }
-        h1 {
-            font-size: 40px; font-family: fantasy; color: white;
-        }
-        textarea {
-            width: 80%; height: 22em; font-size: 20px; resize: none;
-        }
-        p {
-            color: white; font-size: 20px; font-family: fantasy; display: inline-block;
-        }
-        .two p:nth-child(2) { margin-right: 100px; }
+        body { background-color: black; }
+        h1 { font-size: 40px; font-family: fantasy; color: white; }
+        textarea { width: 80%; height: 22em; font-size: 20px; resize: none; }
+        p { color: white; font-size: 20px; font-family: fantasy; display: inline-block; }
+        p:nth-child(2) { margin-right: 100px; }
     </style>
 </head>
 <body>
@@ -26,53 +18,42 @@
         <h1>Word Counter!</h1><br>
         <textarea id="input" cols="40" rows="5"></textarea>
         <br><br><br>
-        <div class="two">
-        <p>Word: <p id="word_count">0</p></p>
-        <p>Character: <p id="char_count">0</p></p>
+        <div>
+            <p>Word: <p id="word_count">0</p></p>
+            <p>Character: <p id="char_count">0</p></p>
         </div>
     </center> 
     <script>
-        var char_count = document.getElementById('char_count');
-        var input = document.getElementById('input');
+        const charCounterEl = document.getElementById('char_count');
+        const wordCounterEl = document.getElementById('word_count');
         const textareaEl = document.querySelector('textarea');
-        const wordCounterEl = document.querySelector('#word_count');
         
-        
-        // Get the value of textarea
-        // and calculate the total word
         const getTotalWord = (element) => {
             let text = element.value;
             let totalWord = text.split(' ').length;
             return text === '' ? 0 : totalWord;
         }
         
-        // Update the word counter element
         const setWordCounter = (element, value) => {
             element.textContent = value;
         } 
         
-        // Fire this function when the user is typing
-        textareaEl.addEventListener('keyup', () => {
-            let totalWord = getTotalWord(textareaEl);
-            setWordCounter(wordCounterEl, totalWord);
-        });
-        
-        // when keyup then running the charCounter function down below
-        input.addEventListener('keyup', function(e){
-            charCounter(e.target.value);
-        });        
-                
-        // character counter function
-        function charCounter(text) {
+        const charCounter = (text) => {
             var text = input.value;
-            var charCount = 0;
-            for (var i = 0; i <= text.length; i++) {
+            let charCount = 0;
+            for (let i=0; i<=text.length; i++) {
                 if (text.charAt(i) != null) {
                     charCount++;
                 }
             }
-            char_count.innerText = charCount - 1;
+            charCounterEl.innerText = charCount - 1;
         }
+
+        textareaEl.addEventListener('keyup', (e) => {
+            let totalWord = getTotalWord(textareaEl);
+            setWordCounter(wordCounterEl, totalWord);
+            charCounter(textareaEl);
+        });
     </script>
 </body>
 </html>
