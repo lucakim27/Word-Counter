@@ -1,6 +1,6 @@
 # Word Counter Website
 
-A website for practising html, css and javascript!
+https://lucakim27.github.io/Word-Counter/
 
 # How to open this website on terminal?
 
